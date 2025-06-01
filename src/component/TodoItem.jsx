@@ -7,7 +7,7 @@ function TodoItem({ item, onHapus, onToggle }) {
         <Card
             variant="outlined"
             sx={{
-                backgroundColor: item.selesai ? '#d0f0c0' : 'white',
+                backgroundColor: item.selesai ? 'lightgray' : 'white',
                 transition: '0.2s ease',
             }}
         >
@@ -28,6 +28,21 @@ function TodoItem({ item, onHapus, onToggle }) {
                     >
                         {item.isi}
                     </Typography>
+                    <Typography
+                        sx={{
+                            fontSize: '0.8rem',
+                            color: 'gray',
+                            marginLeft: 2,
+                        }}>
+                            Ditambahkan pada {new Date(item.id).toLocaleDateString('id-ID', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                        })}
+                        </Typography>
                 </Box>
                 <DeleteButton onClick={() => onHapus(item.id)} />
             </CardContent>
