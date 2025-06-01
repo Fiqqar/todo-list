@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import TodoInput from './TodoInput';
 import TodoList from './TodoList';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Todo() {
     const [daftar, setDaftar] = useState([]);
@@ -17,7 +18,19 @@ function Todo() {
     };
 
     const tambahTodo = (teks) => {
-        if (teks.trim() === '') return toast.error('Kegiatan tidak boleh kosong!');
+        if (teks.trim() === '') {
+            toast.error('Isi input tidak boleh kosong!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light"
+            });
+            return;
+        }
         const itemBaru = { id: Date.now(), isi: teks, selesai: false };
         setDaftar([...daftar, itemBaru]);
     };
@@ -34,7 +47,18 @@ function Todo() {
             </Typography>
             <TodoInput onTambah={tambahTodo} />
             <TodoList daftar={daftar} onHapus={hapusTodo} onToggle={toggleCeklis} />
-
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </Container>
     );
 }
